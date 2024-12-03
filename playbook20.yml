@@ -1,0 +1,44 @@
+---
+- name: congfigure install on tomcat10 and tomcat-admin
+  hosts: all
+  tasks:
+     - name: install tomcat10 
+       apt: 
+          name: "{{item.a}}"
+          state: "{{item.b}}"
+          update_cache: "{{item.c}}"
+       with_items:
+           - {a: tomcat10,b: present,c: yes}
+           - {a: tomcat10-admin,b: present,c: no}
+     - name: abcde
+       copy:
+          src: tomcat-users.xml
+          dest: /etc/tomcat10
+     - name: abcd
+       replace: 
+          regexp: 8080
+          replace: 9090
+          path: /etc/tomcat10/server.xml
+     - name: restarting service
+       service:
+         name: tomcat10
+         state: restarted
+     - name: pojiun
+       pause:
+         seconds: 60
+     - name: check status
+       uri:
+         url: "{{item}}"
+         status_code: 200
+       with_items:
+         - http://172.31.5.23:9090
+         - http://172.31.11.241:9090
+
+...
+
+
+
+        
+  
+  
+

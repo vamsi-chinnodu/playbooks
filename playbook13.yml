@@ -1,0 +1,9 @@
+---
+- name: Implement host scope variables
+  hosts: webserver
+  tasks:
+    - name: Install git
+      apt:
+        name: "{{a}}"
+        state: "{{b}}"
+        update_cache: "{{c}}"

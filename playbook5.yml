@@ -1,0 +1,25 @@
+---
+- name: create users and create dirs in user home dir and copy the passwd file and change permissions
+  hosts: all
+  tasks:
+     - name: create user
+       user: 
+          name: ravi
+          password: intelliqit
+          home: /tmp/ravi
+     - name: create dir in users home dir
+       file: 
+          name: /tmp/ravi/dir1
+          state: directory
+     - name: copy the passwd file
+       copy: 
+          src: /etc/passwd
+          dest: /tmp/ravi/dir1
+     - name: change permissions of the file
+       file: 
+         name: /tmp/ravi/dir1/passwd
+         mode: 760
+
+...
+
+     

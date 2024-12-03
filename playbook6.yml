@@ -1,0 +1,22 @@
+---
+- name: create a new dir and copy the passwd file and replace a word with some other word
+  hosts: all
+  tasks: 
+     - name: create a new directory
+       file: 
+          name: /tmp/dir2
+          state: directory
+     - name: copy passwd file into the newly created directory
+       copy: 
+          src: /etc/passwd
+          dest: /tmp/dir2
+     - name: change the word "vamsi" as "chinnodu"
+       replace: 
+          regexp: vamsi
+          replace: chinnodu
+          path: /tmp/dir2/passwd
+
+
+...
+
+

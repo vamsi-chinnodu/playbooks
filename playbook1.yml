@@ -1,0 +1,20 @@
+---
+- name: create user on all servers
+  hosts: all
+  tasks:
+    - name: user creation
+      user: 
+       name: anu
+       password: intelliq
+       home: /tmp/anu
+       shell: /bin/bash
+       comment: "a regular user"
+       uid: 6789
+
+...
+
+
+
+
+  
+

@@ -1,0 +1,17 @@
+---
+- name: download the selenium scripts from github and change permissions
+  hosts: all 
+  tasks: 
+     - name: download the selenium code 
+       git: 
+         repo: https://github.com/vamsi-chinnodu/FunctionalTesting.git
+         dest: /tmp/test-git
+     - name: give execute permissions to the selenium scripts
+       file: 
+         name: /tmp/test-git/testing.jar
+         mode: 700
+
+
+
+...
+

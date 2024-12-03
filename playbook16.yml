@@ -1,0 +1,9 @@
+---
+- name: Installations uisng host scope variables
+  hosts: 172.31.36.245
+  tasks:
+    - name: Install git
+      apt:
+        name: "{{g}}"
+        state: "{{h}}"
+        update_cache: "{{i}}"

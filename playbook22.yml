@@ -1,0 +1,33 @@
+---
+- name: implementing handlers
+  hosts: all
+  tasks:
+    - name: install apache2
+      apt:
+        name: apache2
+        state: present
+        update_cache: yes
+      notify: check url responce    
+    - name: edit the index.html.file
+      copy:
+        content: "welcome to intelliq"
+        dest: /var/www/html/index.html
+      notify: restart apache2
+  handlers:
+    - name: restart apache2
+      service:
+        name: apache2
+        state: restarted
+    - name: check url responce
+      uri:
+        url: "{{item}}"
+        status_code: 200
+      with_items:
+        http://172.31.5.23
+        http://172.31.11.241
+
+
+
+
+
+
