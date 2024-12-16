@@ -1,0 +1,12 @@
+---
+- name: create multiple files
+  hosts: all
+  tasks:
+    - name: create files
+      file:
+        name: "/tmp/{{item}}"
+        state: touch
+      loop:
+        - file1.txt
+        - file2.txt
+        - file3.txt

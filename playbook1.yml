@@ -1,6 +1,9 @@
 ---
 - name: create user on all servers
   hosts: all
+  gather_facts: false
+  become: yes
+  serial: 2
   tasks:
     - name: user creation
       user: 

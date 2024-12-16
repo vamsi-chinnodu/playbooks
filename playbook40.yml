@@ -1,0 +1,16 @@
+---
+- name: install git based on os  flavour
+  hosts: all
+  tasks:
+    - name: install git using apt on ubuntu servers
+      apt:
+        name: git
+        state: present
+        update_cache: yes
+      when: ansible_distribution=="ubuntu"
+    - name: install git using yum on RedHat servers
+      yum:
+        name: git
+        state: present
+        update_cache: yes
+      when: ansible_distribution=="RedHat"

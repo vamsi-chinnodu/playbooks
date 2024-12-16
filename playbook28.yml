@@ -1,0 +1,20 @@
+---
+- name: configuring nginx
+  hosts: all
+  tasks:
+    - name: install nginx
+      apt:
+        name: nginx
+        state: present
+        update_cache: yes
+    - name: copy customised index.html file
+      copy:
+        src: index.nginx-debian.html
+        dest: /var/www/html
+      notify: restart nginx
+  handlers:
+    - name: restart nginx
+      service:
+        name: nginx
+        state: restarted
+

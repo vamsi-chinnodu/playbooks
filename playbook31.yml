@@ -1,0 +1,21 @@
+---
+- name: error handling or exception handling in ansible
+  hosts: all
+  tasks:
+    - block: 
+        - name: install using apt on ubuntu servers
+          apt:
+            name: git
+            state: present
+            update_cache: yes
+      rescue:
+        - name: install using yum on redhat servers
+          yum:
+            name: git
+            state: present
+            update_cache: yes
+      always:
+        - name: clone remote github code
+          git:
+            repo: https://github.com/vamsi-chinnodu/maven.git
+            dest: /tmp/maven

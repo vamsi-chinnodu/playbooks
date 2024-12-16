@@ -1,0 +1,44 @@
+---
+- name: Configuring apache2/httpd on all servers
+  hosts: all
+  tasks:
+    - block:
+       - name: Install apache2 on Ubuntu servers
+         apt:
+           name: apache2
+           state: present
+           update_cache: yes
+      rescue:
+        - name: Install httpd on Redhat servers
+          yum:
+            name: httpd
+            state: present
+            update_cache: yes
+    - name: Edit the index.html file
+      copy:
+        content: "Welcome to IntelliQ"
+        dest: /var/www/html/index.html
+    - block:
+        - name: Restart apache2 on ubuntu servers
+          service:
+            name: apache2
+            state: restarted
+      rescue:
+        - name: Restart httpd on redhat servers
+          service:
+            name: httpd
+            state: restarted
+    - name: Check apache/httpd response on all servers
+      uri:
+        url: "{{item}}"
+        status_code: 200
+      with_items:
+        - http://172.31.11.241
+        - http://172.31.5.23
+        - http://52.53.198.143
+
+
+
+
+
+
